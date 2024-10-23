@@ -125,12 +125,9 @@ const insertPromptItem = (editor: BlockNoteEditor) => ({
 
           socket.onmessage = async (event) => {
             let rawData;
-            if (
-              event.data.startsWith("data: ") &&
-              !event.data.startsWith("data: [DONE]")
-            ) {
-              rawData = JSON.parse(event.data.slice(6));
-            } else if (event.data.startsWith("data: [DONE]")) {
+
+            rawData = JSON.parse(event.data);
+            if (rawData.response === null) {
               // Convert the accumulated text into blocks using tryParseMarkdownToBlocks
               const blocks =
                 await editor.tryParseMarkdownToBlocks(accumulatedText);
@@ -146,9 +143,10 @@ const insertPromptItem = (editor: BlockNoteEditor) => ({
 
             try {
               const data = rawData;
+
               let content;
-              if (data.choices[0] && data.choices[0].delta.content !== "") {
-                content = data.choices[0].delta.content;
+              if (data.response && data.response !== "") {
+                content = data.response;
               }
 
               if (content) {
