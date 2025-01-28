@@ -115,7 +115,7 @@ const insertPromptItem = (editor: BlockNoteEditor) => ({
 
       const handleWebSocket = () => {
         return new Promise<void>((resolve, reject) => {
-          const socket = new WebSocket("ws://localhost:8765");
+          const socket = new WebSocket("ws://localhost:8000/generate");
           let accumulatedText = "";
 
           socket.onopen = () => {
