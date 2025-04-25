@@ -162,7 +162,7 @@ const Navigation = () => {
             label="Code Generation"
             icon={Settings}
             onClick={() => {
-              router.push("/generation");
+				window.open("http://localhost:5173/", "_blank");
             }}
           />
           <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
